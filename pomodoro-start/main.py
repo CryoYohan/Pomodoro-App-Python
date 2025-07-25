@@ -69,7 +69,7 @@ def count_down(count):
             check_mark.config(text=no_of_checkmarks)
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
-window.title("Pomodoro")
+window.title("🍅 Pomodoro Pal")
 window.config(padx=100, pady=50, bg=YELLOW)
 
 # This canvas is for the Tomato image with a size of 220 x 224
