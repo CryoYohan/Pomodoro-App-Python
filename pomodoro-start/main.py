@@ -2,6 +2,8 @@ import time
 from tkinter import *
 import math
 from music_player import MusicPlayer
+import os
+import sys
 # ---------------------------- CONSTANTS ------------------------------- #
 
 PINK = "#e2979c"
@@ -14,12 +16,22 @@ WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 CHECK_MARK='✔'
-WORK_LOFI_MUSIC= "Pufino-Meticulous.mp3"
-BREAK_LOFI_MUSIC= "Filo_Starquez-Park_Vibes.mp3"
-LONG_BREAK_LOFI_MUSIC= "Moavii-Warm_Cup_of_Coffe.mp3"
+WORK_LOFI_MUSIC= "mp3/Pufino-Meticulous.mp3"
+BREAK_LOFI_MUSIC= "mp3/Filo_Starquez-Park_Vibes.mp3"
+LONG_BREAK_LOFI_MUSIC= "mp3/Moavii-Warm_Cup_of_Coffe.mp3"
 reps = 0
 timer = None
 music_player = MusicPlayer()
+
+#-------------------------- HELPER FUNCTION -----------------------------#
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 # ---------------------------- TIMER RESET ------------------------------- #
 def reset_timer():
@@ -41,7 +53,7 @@ def start_timer():
 
     # Play this audio when Pomodoro apps starts
     if reps == 1:
-        music_player.load_music(file_name="work_mode_speech.mp3")
+        music_player.load_music(file_name=resource_path("mp3/work_mode_speech.mp3"))
         music_player.play_music()
         time.sleep(2)
 
@@ -49,10 +61,10 @@ def start_timer():
     if reps % 8 == 0:
         print("Long Break")
         status_label.config(text="Long Break", fg=RED)
-        music_player.load_music(file_name="long_break_speech.mp3")
+        music_player.load_music(file_name=resource_path("mp3/long_break_speech.mp3"))
         music_player.play_music()
         time.sleep(4)
-        music_player.load_music(LONG_BREAK_LOFI_MUSIC)
+        music_player.load_music(resource_path(LONG_BREAK_LOFI_MUSIC))
         music_player.play_music()
         count_down(long_break_sec)
 
@@ -60,7 +72,7 @@ def start_timer():
     elif reps % 2 == 0:
         print("Break")
         status_label.config(text="Break", fg=PINK)
-        music_player.load_music(BREAK_LOFI_MUSIC)
+        music_player.load_music(resource_path(BREAK_LOFI_MUSIC))
         music_player.play_music()
         count_down(short_break_sec)
 
@@ -68,7 +80,7 @@ def start_timer():
     else:
         print("Work")
         status_label.config(text="Work", fg=GREEN)
-        music_player.load_music(WORK_LOFI_MUSIC)
+        music_player.load_music(resource_path(WORK_LOFI_MUSIC))
         music_player.play_music()
         count_down(work_sec)
 
@@ -98,7 +110,7 @@ window.config(padx=100, pady=50, bg=YELLOW)
 
 # This canvas is for the Tomato image with a size of 220 x 224
 canvas = Canvas(width=220, height=224, bg=YELLOW, highlightthickness=0)
-tomato_png = PhotoImage(file="tomato.png") # Read an image file to be added as arg in the canvas object
+tomato_png = PhotoImage(file=resource_path(os.path.join("images", "tomato.png"))) # Read an image file to be added as arg in the canvas object
 canvas.create_image(110, 112, image=tomato_png) # The width and height is half of the canvas so that my tomato will be hanging in the center of the canvas
 timer_text = canvas.create_text(110, 130, text="00:00", fill="white", font=(FONT_NAME, 30, "bold"))
 start_button = Button(window, text="Start", fg=BLACK, font=(FONT_NAME, 9, "bold"), cursor="hand2", command=start_timer)
