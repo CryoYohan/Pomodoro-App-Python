@@ -38,9 +38,10 @@ The Pomodoro Pal helps you focus like a laser beam by breaking down your work in
     ```bash
     python main.py
     ```
-   
+   OR you can download the executable inside the dist folder named, pomodoro-pal.exe
 ## Get Ready to Tomato-fy Your Productivity! 🚀
 
 Give the Pomodoro Pal a spin and watch your focus (and completed tasks!) skyrocket. Happy pomodoro-ing! 🌟
+
 <img width="505" height="458" alt="image" src="https://github.com/user-attachments/assets/d55b7317-1e57-4cbb-95ed-ce98bb058abf" />
 
