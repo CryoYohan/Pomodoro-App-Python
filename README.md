@@ -42,4 +42,5 @@ The Pomodoro Pal helps you focus like a laser beam by breaking down your work in
 ## Get Ready to Tomato-fy Your Productivity! 🚀
 
 Give the Pomodoro Pal a spin and watch your focus (and completed tasks!) skyrocket. Happy pomodoro-ing! 🌟
-<img width="509" height="464" alt="image" src="https://github.com/user-attachments/assets/568d7a0e-af53-4f92-8dc7-137d1743bead" />
+<img width="505" height="458" alt="image" src="https://github.com/user-attachments/assets/d55b7317-1e57-4cbb-95ed-ce98bb058abf" />
+
