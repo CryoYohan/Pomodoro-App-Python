@@ -24,7 +24,7 @@ class MusicPlayer:
         """Plays the loaded music."""
         if self.music_loaded:
             if not pygame.mixer.music.get_busy(): # Only play if not already playing
-                pygame.mixer.music.play()
+                pygame.mixer.music.play(-1)
                 print("Music started.")
             else:
                 print("Music is already playing.")
@@ -46,23 +46,6 @@ class MusicPlayer:
             print("Music stopped.")
         else:
             print("No music is currently playing or loaded to stop.")
-
-    def queue_music(self, file_name):
-        """
-        Queues a music file to play immediately after the current one finishes.
-        Only one song can be queued at a time. Queuing a new song replaces the old one.
-        """
-        if not self.music_loaded:
-            print("No music is currently loaded or playing to queue after.")
-            # return # Optionally, you might want to return here if nothing is playing to queue after
-
-        try:
-            pygame.mixer.music.queue(file_name)
-            print(f"Music queued: {file_name}. Will play after current track.")
-            return True
-        except pygame.error as e:
-            print(f"Error queuing music '{file_name}': {e}")
-            return False
 
     def __del__(self):
         """Ensures Pygame mixer is quit when the object is destroyed."""
