@@ -1,5 +1,7 @@
+import time
 from tkinter import *
 import math
+from music_player import MusicPlayer
 # ---------------------------- CONSTANTS ------------------------------- #
 
 PINK = "#e2979c"
@@ -12,8 +14,12 @@ WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 CHECK_MARK='✔'
+WORK_LOFI_MUSIC= "Pufino-Meticulous.mp3"
+BREAK_LOFI_MUSIC= "Filo_Starquez-Park_Vibes.mp3"
+LONG_BREAK_LOFI_MUSIC= "Moavii-Warm_Cup_of_Coffe.mp3"
 reps = 0
 timer = None
+music_player = MusicPlayer()
 
 # ---------------------------- TIMER RESET ------------------------------- #
 def reset_timer():
@@ -23,6 +29,7 @@ def reset_timer():
     status_label.config(text="Timer", fg=GREEN)
     canvas.itemconfig(timer_text, text="00:00")
     check_mark.config(text="")
+    music_player.stop_music()
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
 def start_timer():
@@ -32,22 +39,37 @@ def start_timer():
     short_break_sec = SHORT_BREAK_MIN * 60
     long_break_sec = LONG_BREAK_MIN * 60
 
+    # Play this audio when Pomodoro apps starts
+    if reps == 1:
+        music_player.load_music(file_name="work_mode_speech.mp3")
+        music_player.play_music()
+        time.sleep(3)
+
     # If it's the 8th rep:
     if reps % 8 == 0:
         print("Long Break")
         status_label.config(text="Long Break", fg=RED)
+        music_player.load_music(file_name="long_break_speech.mp3")
+        music_player.play_music()
+        time.sleep(4)
+        music_player.load_music(LONG_BREAK_LOFI_MUSIC)
+        music_player.play_music()
         count_down(long_break_sec)
 
     # If it's the 2nd/4th/6th rep:
     elif reps % 2 == 0:
         print("Break")
         status_label.config(text="Break", fg=PINK)
+        music_player.load_music(BREAK_LOFI_MUSIC)
+        music_player.play_music()
         count_down(short_break_sec)
 
     # If it's the 1st/3rd/5th/7th rep:
     else:
         print("Work")
         status_label.config(text="Work", fg=GREEN)
+        music_player.load_music(WORK_LOFI_MUSIC)
+        music_player.play_music()
         count_down(work_sec)
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
@@ -71,6 +93,7 @@ def count_down(count):
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title("Pomodoro Pal")
+window.resizable(False, False)
 window.config(padx=100, pady=50, bg=YELLOW)
 
 # This canvas is for the Tomato image with a size of 220 x 224
