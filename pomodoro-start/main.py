@@ -12,19 +12,24 @@ SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 CHECK_MARK='✔'
 reps = 0
+timer = None
 
 # ---------------------------- TIMER RESET ------------------------------- #
 def reset_timer():
     global reps
     reps = 0
+    window.after_cancel(timer)
+    status_label.config(text="Timer", fg=GREEN)
+    canvas.itemconfig(timer_text, text="00:00")
+    check_mark.config(text="")
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
 def start_timer():
     global reps
     reps += 1
-    work_sec = 30
-    short_break_sec = 15
-    long_break_sec = 1 * 60
+    work_sec = WORK_MIN * 60
+    short_break_sec = SHORT_BREAK_MIN * 60
+    long_break_sec = LONG_BREAK_MIN * 60
 
     # If it's the 8th rep:
     if reps % 8 == 0:
@@ -46,7 +51,7 @@ def start_timer():
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 def count_down(count):
-    global reps
+    global reps, timer
     count_in_minutes = math.floor(count / 60)
     count_in_seconds = count % 60
 
@@ -56,7 +61,7 @@ def count_down(count):
         count_in_seconds = f"0{count_in_seconds}"
     canvas.itemconfig(timer_text, text=f"{count_in_minutes}:{count_in_seconds}")
     if count > 0:
-        window.after(1000, count_down, count - 1)
+        timer = window.after(1000, count_down, count - 1)
     else:
         start_timer()
         if reps % 2 == 0:
@@ -73,7 +78,7 @@ tomato_png = PhotoImage(file="tomato.png") # Read an image file to be added as a
 canvas.create_image(110, 112, image=tomato_png) # The width and height is half of the canvas so that my tomato will be hanging in the center of the canvas
 timer_text = canvas.create_text(110, 130, text="00:00", fill="white", font=(FONT_NAME, 30, "bold"))
 start_button = Button(window, text="Start", fg="BLACK", font=(FONT_NAME, 9, "bold"), cursor="hand2", command=start_timer)
-reset_button = Button(window, text="Reset",  fg="BLACK", font=(FONT_NAME, 9, "bold"), cursor="hand2")
+reset_button = Button(window, text="Reset",  fg="BLACK", font=(FONT_NAME, 9, "bold"), cursor="hand2", command=reset_timer)
 status_label = Label(window, text="Timer",font=(FONT_NAME, 35, "bold"), fg=GREEN, bg=YELLOW)
 check_mark = Label(window, fg=GREEN, font=(FONT_NAME, 12, "bold"), bg=YELLOW)
 
