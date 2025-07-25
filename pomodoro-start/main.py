@@ -6,6 +6,7 @@ PINK = "#e2979c"
 RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
+BLACK = "#28282B"
 FONT_NAME = "Courier"
 WORK_MIN = 25
 SHORT_BREAK_MIN = 5
@@ -69,7 +70,7 @@ def count_down(count):
             check_mark.config(text=no_of_checkmarks)
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
-window.title("🍅 Pomodoro Pal")
+window.title("Pomodoro Pal")
 window.config(padx=100, pady=50, bg=YELLOW)
 
 # This canvas is for the Tomato image with a size of 220 x 224
@@ -77,10 +78,13 @@ canvas = Canvas(width=220, height=224, bg=YELLOW, highlightthickness=0)
 tomato_png = PhotoImage(file="tomato.png") # Read an image file to be added as arg in the canvas object
 canvas.create_image(110, 112, image=tomato_png) # The width and height is half of the canvas so that my tomato will be hanging in the center of the canvas
 timer_text = canvas.create_text(110, 130, text="00:00", fill="white", font=(FONT_NAME, 30, "bold"))
-start_button = Button(window, text="Start", fg="BLACK", font=(FONT_NAME, 9, "bold"), cursor="hand2", command=start_timer)
-reset_button = Button(window, text="Reset",  fg="BLACK", font=(FONT_NAME, 9, "bold"), cursor="hand2", command=reset_timer)
+start_button = Button(window, text="Start", fg=BLACK, font=(FONT_NAME, 9, "bold"), cursor="hand2", command=start_timer)
+reset_button = Button(window, text="Reset",  fg=BLACK, font=(FONT_NAME, 9, "bold"), cursor="hand2", command=reset_timer)
 status_label = Label(window, text="Timer",font=(FONT_NAME, 35, "bold"), fg=GREEN, bg=YELLOW)
 check_mark = Label(window, fg=GREEN, font=(FONT_NAME, 12, "bold"), bg=YELLOW)
+
+# Set Custom Icon for Pomodoro App
+window.wm_iconphoto(True, tomato_png)
 
 # Grid Function for Layout
 status_label.grid(row=0, column=1, sticky=N)
