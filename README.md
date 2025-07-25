@@ -25,8 +25,6 @@ The Pomodoro Pal helps you focus like a laser beam by breaking down your work in
 
 ## How to Get Your Pomodoro Pal Running! 🏃‍♀️
 
-*(Assuming your project structure includes a `main.py` or similar. Adjust the filename if yours is different!)*
-
 1.  **Clone this repo:**
     ```bash
     git clone https://github.com/CryoYohan/Pomodoro-App-Pytho.git
