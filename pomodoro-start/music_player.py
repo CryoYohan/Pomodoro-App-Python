@@ -24,7 +24,7 @@ class MusicPlayer:
         """Plays the loaded music."""
         if self.music_loaded:
             if not pygame.mixer.music.get_busy(): # Only play if not already playing
-                pygame.mixer.music.play(-1)
+                pygame.mixer.music.play(loops=-1)
                 print("Music started.")
             else:
                 print("Music is already playing.")

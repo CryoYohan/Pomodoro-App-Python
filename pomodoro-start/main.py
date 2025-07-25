@@ -43,7 +43,7 @@ def start_timer():
     if reps == 1:
         music_player.load_music(file_name="work_mode_speech.mp3")
         music_player.play_music()
-        time.sleep(3)
+        time.sleep(2)
 
     # If it's the 8th rep:
     if reps % 8 == 0:
